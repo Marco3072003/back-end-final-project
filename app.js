@@ -1,11 +1,11 @@
 require('dotenv').config();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
-const mongoStr = process.env.DATABASE_URL || 3000;
+const mongoStr = process.env.DATABASE_URL;
 
 
 const Video = require('./controller/videoController');
