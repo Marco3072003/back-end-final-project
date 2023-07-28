@@ -70,7 +70,7 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
 
 - http://API_URL/video/:videoId/like/:username POST Like Video (add username to video.likes)
 
-- http://API_URL/video/:videoId/product/:productId POST Associate an Existing Product to an Existing video (add productId to video.productId)
+- http://API_URL/video/:videoId/product/:productId POST Associate an existing Product to an existing video (add productId to video.productId)
 
 - http://API_URL/video/:videoId/comment POST Comment to Video (add body value and timestamp to video.comment )
   body: {username: String, comment: String}
@@ -144,7 +144,7 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
 
 **GET /video/:id**
 ----
-  Returns the specified user.
+  Returns the specified video.
 * **URL Params**  
   *Required:* `id=[ObjectId]`
 * **Data Params**  
@@ -195,7 +195,7 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
 
 **GET /video/:videoId/comment**
 ----
-  Returns all comments with the specified user.
+  Returns all comments with the specified video.
 * **URL Params**  
   *Required:* `videoId=[ObjectId]`
 * **Data Params**  
@@ -227,7 +227,7 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
 
 **POST /video**
 ----
-  Creates a new User and returns the new object.
+  Creates a new Video and returns the new object.
 * **URL Params**  
   None
 * **Headers**  
@@ -254,7 +254,7 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
 
 **POST /video/:id/play**
 ----
-  Creates a new User and returns the new object.
+  Make Play Video or video.views++.
 * **URL Params**  
 *Required:* `id=[ObjectId]`
 * **Headers**  
@@ -273,7 +273,7 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
 
 **POST /video/:id/like/:username**
 ----
-  Creates a new User and returns the new object.
+  Create/Add like with Data Params object.
 * **URL Params**  
 *Required:* `id=[ObjectId]`
 *Required:* `username=[String]`
@@ -293,7 +293,7 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
 
 **POST /video/:videoId/product/:productId**
 ----
-  Creates a new User and returns the new object.
+  Associate an specified existing Product to an specified existing video (add productId to video.productId).
 * **URL Params**  
 *Required:* `videoId=[ObjectId]`
 *Required:* `productId=[ObjectId]`
@@ -319,7 +319,7 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
   
 **POST /video/:id/comment**
 ----
-Creates a new User and returns the new object.
+Create/Add Comment to specified video (add Data Params value and timestamp to video.comment )
 * **URL Params**  
 *Required:* `id=[ObjectId]`
 * **Headers**  
@@ -345,7 +345,7 @@ Creates a new User and returns the new object.
 
 **PATCH /video/:id**
 ----
-  Updates fields on the specified user and returns the updated object.
+  Updates fields on the specified video and returns the updated object.
 * **URL Params**  
   *Required:* `id=[objectId]`
 * **Data Params**  
@@ -372,7 +372,7 @@ Creates a new User and returns the new object.
 
 **DELETE /video/:id**
 ----
-  Deletes the specified user.
+  Delete the specified video.
 * **URL Params**  
   *Required:* `id=[objectId]`
 * **Data Params**  
@@ -391,7 +391,7 @@ Creates a new User and returns the new object.
 
 **DELETE /video/:videoId/product/:productId**
 ----
-  Remove productId Video that reference Product 
+  Remove specified productId Video that reference Product 
 * **URL Params**  
   *Required:* `videoId=[objectId]`
   *Required:* `productId=[objectId]`
