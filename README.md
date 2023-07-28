@@ -1,7 +1,7 @@
 **FERNANDO MARCO GG3FSGP0329 FULLSTACK ENGINEERING Generasi GIGIH 3.0 Mid Term assignment Video API**
 ----
 
-This is my project to fullfill Mid Term assignment from Generasi GIGIH 3.0
+This is my project to fullfill Mid Term assignment from Generasi GIGIH 3.0. I am using mongoDB as database and NodeJs, expressJs as backend. Make sure your PC has mongoDB installed and can run it.
 
 
 **DATABASE STRUCTURE**
@@ -553,6 +553,9 @@ Create/Add Comment to specified video (add Data Params value and timestamp to vi
 
 **HOW TO RUN** 
 ----
+**Make sure Make sure your PC has mongoDB installed. 
+**Make sure your PC has mongoDB installed. Because these Apps use the mongoDB database
+
 1. CLONE THE REPOSITORY
 
 2. INSTALL THE DEPENDENCIES:
