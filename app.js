@@ -11,11 +11,6 @@ const mongoStr = process.env.DATABASE_URL;
 const Video = require('./controller/videoController');
 const Product = require('./controller/productController');
 
-// SWAGGER
-// const swaggerUI = require('swagger-ui-express');
-// const apiDocumentation = require('./apidocs.json');
-// app.use('video-api-docs', swaggerUI.serve, swaggerUI.setup(apiDocumentation)); 
-// ENDSWAGGER
 
 mongoose.connect(mongoStr);
 
