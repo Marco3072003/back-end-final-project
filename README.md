@@ -566,14 +566,13 @@ Creates a new User and returns the new object.
 - make a file name .env
 - in this file add DATABASE_URL = 'mongodb://your database url'
 
-- if you want to custom PORT, you can add PORT='customport' in this file 
+- This apps default run on PORT 3000. If you want to custom PORT, you can add PORT='customport' in this file 
 
 - for your information my .env file contains: 
 
+  PORT = 3000
 
-PORT = 3000
-
-DATABASE_URL = mongodb://127.0.0.1:27017/videos
+  DATABASE_URL = mongodb://127.0.0.1:27017/videos
 
 
 4. RUN THE APPLICATION: 
