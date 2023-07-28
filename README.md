@@ -554,7 +554,8 @@ Create/Add Comment to specified video (add Data Params value and timestamp to vi
 **HOW TO RUN** 
 ----
 **Make sure Make sure your PC has mongoDB installed. 
-**Make sure your PC has mongoDB installed. Because these Apps use the mongoDB database
+
+**Make sure your PC has mongoDB installed. Because this App use the mongoDB database
 
 1. CLONE THE REPOSITORY
 
