@@ -1,9 +1,11 @@
-**Fernando Marco Generasi GIGIH 3.0 Mid Term assignment Video API**
+**FERNANDO MARCO Generasi GIGIH 3.0 Mid Term assignment Video API**
+----
 
 This is my project to fullfill Mid Term assignment from Generasi GIGIH 3.0
 
 
-**Data base Structure**
+**DATABASE STRUCTURE**
+----
 Collection:
 - videos
 ```
@@ -44,7 +46,9 @@ Collection:
 }
 ```
 
-**API Structure**
+**API STRUCTURE**
+----
+
 You can replace API_URL by localhost:YOUR_RUNNING_PORT. 
 
 *METHOD GET*
@@ -86,12 +90,14 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
 
 
 **LIST API REQUEST AND RESPONSE**
+----
 
 
 
-**How To Run** 
-1. Clone this repository
-2. Install the Dependencies
+**HOW TO RUN** 
+----
+1. CLONE THE REPOSITORY
+2. INSTALL THE DEPENDENCIES
 - express
 - body-parser
 - mongoose
@@ -99,7 +105,7 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
 - nodemon
 - swagger-ui-express
 
-3. .env Configuration:
+3. .env CONFIGURATION:
 - make a file name .env
 - in this file add DATABASE_URL = 'mongodb://your database url'
 
@@ -110,5 +116,6 @@ PORT = 3000
 DATABASE_URL = mongodb://127.0.0.1:27017/videos
 
 
-4. Run the application
+4. RUN THE APPLICATION: 
+
 - run command 'npm start' in terminal
