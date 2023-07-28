@@ -192,6 +192,10 @@ async function findVideoProductList(id){
 
     const productList = [...video.productId];
 
+    if(productList.length === 0){
+        throw new Error('Product List is Empty');
+    }
+
     return productList;
 }
 

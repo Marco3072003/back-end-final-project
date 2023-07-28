@@ -6,6 +6,8 @@ This is my project to fullfill Mid Term assignment from Generasi GIGIH 3.0
 
 **DATABASE STRUCTURE**
 ----
+I use mongoDB as Database
+
 Collection:
 - videos
 ```
@@ -91,13 +93,469 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
 
 **LIST API REQUEST AND RESPONSE**
 ----
+#video
+* video object
+```
+{
+        _id: String,
+        title: String,
+        desc: String,
+        videoURL: String,
+        imgURL: String,
+        views: Number,
+        productId: ['reference with ObjectId product collection'],
+        likes: Number,
+        comments: [
+                {username: String,
+                comment: String,
+                timestamp: Date},
+                {<comment_object>}
+                ]
+}
 
+    
+
+```
+**GET /video**
+----
+  Returns all videos in the system.
+* **URL Params**  
+  None
+* **Data Params**  
+  None
+* **Headers**  
+  Content-Type: application/json  
+* **Success Response:**  
+* **Code:** 200  
+  **Content:**  
+```
+{
+  videos: [
+           {<video_object>},
+           {<video_object>},
+           {<video_object>}
+         ]
+}
+```
+* **Error Response:**  
+  * **Code:** 404  
+  **Content:** `{ error : "Video List is Empty" }`
+  
+
+**GET /video/:id**
+----
+  Returns the specified user.
+* **URL Params**  
+  *Required:* `id=[ObjectId]`
+* **Data Params**  
+  None
+* **Headers**  
+  Content-Type: application/json  
+* **Success Response:** 
+* **Code:** 200  
+  **Content:**  `{ <video_object> }` 
+* **Error Response:**  
+  * **Code:** 404  
+  **Content:** `{ error : "Video doesn't exist" }`
+  OR
+  * **Code:** 404  
+  **Content:** `{ error : "Video List is Empty" }`  
+
+
+**GET /video/:videoId/product**
+----
+  Returns all product associated with the specified video.
+* **URL Params**  
+  *Required:* `videoId=[ObjectId]`
+* **Data Params**  
+  None
+* **Headers**  
+  Content-Type: application/json  
+* **Success Response:**  
+* **Code:** 200  
+  **Content:**  
+```
+{
+  ProductList: [
+           {<product_object>},
+           {<product_object>},
+           {<product_object>}
+         ]
+}
+```
+* **Error Response:**  
+  * **Code:** 404  
+  **Content:** `{ error : "Video doesn't exist" }`  
+  OR
+  * **Code:** 404  
+  **Content:** `{ error : "Video List is Empty" }`
+  OR
+  * **Code:** 404  
+  **Content:** `{ error : "Product List is Empty" }`  
+
+**GET /video/:videoId/comment**
+----
+  Returns all comments with the specified user.
+* **URL Params**  
+  *Required:* `videoId=[ObjectId]`
+* **Data Params**  
+  None
+* **Headers**  
+  Content-Type: application/json  
+* **Success Response:**  
+* **Code:** 200  
+  **Content:**  
+```
+{
+  CommentList: [
+           {<comment_object>},
+           {<comment_object>},
+           {<comment_object>}
+         ]
+}
+```
+* **Error Response:**  
+  * **Code:** 404  
+  **Content:** `{ error : "Video doesn't exist" }`  
+  OR
+  * **Code:** 404  
+  **Content:** `{ error : "Video List is Empty" }`
+  OR
+  * **Code:** 404  
+  **Content:** `{ error : "Comment List is Empty" }`
+    
+
+**POST /video**
+----
+  Creates a new User and returns the new object.
+* **URL Params**  
+  None
+* **Headers**  
+  Content-Type: application/json  
+* **Data Params**  
+```
+  {
+    title: String,
+    desc: String,
+    videoURL: String,
+    imgURL: String
+  }
+```
+* **Success Response:**  
+* **Code:** 200  
+  **Content:**  `{ <video_object> }`
+* **Error Response:**  
+  * **Code:** 404  
+  **Content:** `{ error : "Video or Image URL has been added" }`
+  OR  
+  * **Code:** 404  
+  **Content:** `{ error : error : "Insufficient Parameter" }`
+    
+
+**POST /video/:id/play**
+----
+  Creates a new User and returns the new object.
+* **URL Params**  
+*Required:* `id=[ObjectId]`
+* **Headers**  
+  Content-Type: application/json  
+* **Data Params**  
+  None
+* **Success Response:**  
+* **Code:** 200  
+  **Content:**  `{  Message: Successfully play song with the title: $Video.title'  }`
+* **Error Response:**  
+  * **Code:** 404  
+  **Content:** `{ error : "Video doesn't exist" }`
+  OR
+  * **Code:** 404  
+  **Content:** `{ error : "Video List is Empty" }`  
+
+**POST /video/:id/like/:username**
+----
+  Creates a new User and returns the new object.
+* **URL Params**  
+*Required:* `id=[ObjectId]`
+*Required:* `username=[String]`
+* **Headers**  
+  Content-Type: application/json  
+* **Data Params**  
+  None
+* **Success Response:**  
+* **Code:** 200  
+  **Content:**  `{  Message: $username Successfully liked video with the title: $Video.title'  }`
+* **Error Response:**  
+  * **Code:** 404  
+  **Content:** `{ error : "Video doesn't exist" }`
+  OR
+  * **Code:** 404  
+  **Content:** `{ error : "Video List is Empty" }`  
+
+**POST /video/:videoId/product/:productId**
+----
+  Creates a new User and returns the new object.
+* **URL Params**  
+*Required:* `videoId=[ObjectId]`
+*Required:* `productId=[ObjectId]`
+* **Headers**  
+  Content-Type: application/json  
+* **Data Params**  
+  None
+* **Success Response:**  
+* **Code:** 200  
+  **Content:**  `{  Message: Success to add product $product.title to video $video.title'  }`
+* **Error Response:**  
+  * **Code:** 404  
+  **Content:** `{ error : "Video doesn't exist" }`
+  OR
+  * **Code:** 404  
+  **Content:** `{ error : "Video List is Empty" }` 
+  OR
+  * **Code:** 404  
+  **Content:** `{ error : "Product List is Empty" }` 
+  OR
+  * **Code:** 404  
+  **Content:** `{ error : "Product doesn't exist" }`
+  
+**POST /video/:id/comment**
+----
+Creates a new User and returns the new object.
+* **URL Params**  
+*Required:* `id=[ObjectId]`
+* **Headers**  
+  Content-Type: application/json  
+* **Data Params**  
+ ```
+  {
+    comment: String,
+    username: String,
+  }
+```
+  
+* **Success Response:**  
+* **Code:** 200  
+  **Content:**  `{  <commnet_object>  }`
+* **Error Response:**  
+  * **Code:** 404  
+  **Content:** `{ error : "Video doesn't exist" }`
+  OR
+  * **Code:** 404  
+  **Content:** `{ error : "Video List is Empty" }` 
+  
+
+**PATCH /video/:id**
+----
+  Updates fields on the specified user and returns the updated object.
+* **URL Params**  
+  *Required:* `id=[objectId]`
+* **Data Params**  
+```
+  {
+  	username: string,
+    email: string
+  }
+```
+* **Headers**  
+  Content-Type: application/json  
+* **Success Response:** 
+* **Code:** 200  
+  **Content:**  `{ <user_object> }`  
+* **Error Response:**  
+  * **Code:** 404  
+  **Content:** `{ error : "Video doesn't exist" }`
+  OR  
+  * **Code:** 404  
+  **Content:** `{ error : error : "Insufficient Parameter" }` 
+  OR
+  * **Code:** 404  
+  **Content:** `{ error : "Video or Image URL has been added" }`
+
+**DELETE /video/:id**
+----
+  Deletes the specified user.
+* **URL Params**  
+  *Required:* `id=[objectId]`
+* **Data Params**  
+  None
+* **Headers**  
+  Content-Type: application/json  
+* **Success Response:** 
+  * **Code:** 200 
+  **Content:**  `{Message: Successfully deleted video with title $video.title}` 
+* **Error Response:**  
+  * **Code:** 404  
+  **Content:** `{ error : "Video doesn't exist" }`  
+  OR  
+  * **Code:** 404  
+  **Content:** `{ error : Video List is Empty." }`
+
+**DELETE /video/:videoId/product/:productId**
+----
+  Remove productId Video that reference Product 
+* **URL Params**  
+  *Required:* `videoId=[objectId]`
+  *Required:* `productId=[objectId]`
+* **Data Params**  
+  None
+* **Headers**  
+  Content-Type: application/json  
+* **Success Response:** 
+  * **Code:** 200 
+  **Content:**  `{Message: Success to remove product $product.title from video $video.title` 
+* **Error Response:**  
+  * **Code:** 404  
+  **Content:** `{ error : "There is no productID in Video" }`  
+  OR  
+  * **Code:** 404  
+  **Content:** `{ error : Video List is Empty." }`
+  OR  
+  * **Code:** 404  
+  **Content:** `{ error : Video doesn't Exist." }`
+  OR  
+  * **Code:** 404  
+  **Content:** `{ error : Product List is Empty." }`
+  OR  
+  * **Code:** 404  
+  **Content:** `{ error : Product doesn't Exist." }`
+  OR  
+  * **Code:** 404  
+  **Content:** `{ error : There is no ProductID in video" }`
+
+#Products
+* Product object
+```
+{
+    
+    _id: String,
+    productURL: String,
+    title: String,
+    price: Number
+
+}
+```
+**GET /product**
+----
+  Returns all products in the system.
+* **URL Params**  
+  None
+* **Data Params**  
+  None
+* **Headers**  
+  Content-Type: application/json  
+* **Success Response:** 
+* **Code:** 200  
+  **Content:**  
+```
+{
+  products: [
+           {<product_object>},
+           {<product_object>},
+           {<product_object>}
+         ]
+}
+```
+* **Error Response:**  
+  * **Code:** 404  
+  **Content:** `{ error : "Product List is Empty" }` 
+
+**GET /product/:id**
+----
+  Returns the specified product.
+* **URL Params**  
+  *Required:* `id=[objectId]`
+* **Data Params**  
+  None
+* **Headers**  
+  Content-Type: application/json  
+* **Success Response:**  
+* **Code:** 200  
+  **Content:**  `{ <product_object> }` 
+* **Error Response:**  
+  * **Code:** 404  
+  **Content:** `{ error : "Product doesn't exist" }`  
+  OR  
+  * **Code:** 404  
+  **Content:** `{ error : "Product List is Empty" }`
+
+
+**POST /products**
+----
+  Creates a new Product and returns the new object.
+* **URL Params**  
+  None
+* **Data Params**  
+```
+  {
+    productURL : String,
+    title : String,
+    price: Number
+  }
+```
+* **Headers**  
+  Content-Type: application/json  
+* **Success Response:**  
+* **Code:** 200  
+  **Content:**  `{ <product_object> }`
+* **Error Response:**  
+  * **Code:** 404  
+  **Content:** `{ error : "Url product has been added" }`  
+  OR  
+  * **Code:** 404  
+  **Content:** `{ error : error : "Insufficient Parameter" }`  
+
+
+**PATCH /products/:id**
+----
+  Updates fields on the specified product and returns the updated object.
+* **URL Params**  
+  *Required:* `id=[objectId]`
+* **Data Params**  
+```
+  {
+  	productURL : String,
+    title : String,
+    price: Number
+  }
+```
+* **Headers**  
+  Content-Type: application/json  
+* **Success Response:** 
+* **Code:** 200  
+  **Content:**  `{ <product_object> }`  
+* **Error Response:**  
+  * **Code:** 404  
+  **Content:** `{ error : "Product doesn't exist" }`  
+  OR  
+  * **Code:** 404  
+  **Content:** `{ error : "Product List is Empty" }`
+  OR  
+  * **Code:** 404  
+  **Content:** `{ error : "URL product has been added" }`
+
+**DELETE /products/:id**
+----
+  Deletes the specified product.
+* **URL Params**  
+  *Required:* `id=[objectId]`
+* **Data Params**  
+  None
+* **Headers**  
+  Content-Type: application/json  
+* **Success Response:**  
+  * **Code:** 200
+* **Error Response:**  
+  * **Code:** 404  
+  **Content:** `{ error : "Product doesn't exist" }`  
+  OR  
+  * **Code:** 404  
+  **Content:** `{ error : "Product List is Empty" }`
 
 
 **HOW TO RUN** 
 ----
 1. CLONE THE REPOSITORY
-2. INSTALL THE DEPENDENCIES
+
+2. INSTALL THE DEPENDENCIES:
 - express
 - body-parser
 - mongoose

@@ -30,6 +30,10 @@ async function getVideoComment(videoId){
 
     const comments = [...video.comments];
 
+    if(comments.length === 0){
+        throw new Error('Comment List is Empty');
+    }
+
     return comments;
 }
 
