@@ -1,4 +1,4 @@
-**FERNANDO MARCO Generasi GIGIH 3.0 Mid Term assignment Video API**
+**FERNANDO MARCO GG3FSGP0329 FULLSTACK ENGINEERING Generasi GIGIH 3.0 Mid Term assignment Video API**
 ----
 
 This is my project to fullfill Mid Term assignment from Generasi GIGIH 3.0
