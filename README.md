@@ -561,7 +561,6 @@ Creates a new User and returns the new object.
 - mongoose
 - dotenv
 - nodemon
-- swagger-ui-express
 
 3. .env CONFIGURATION:
 - make a file name .env
@@ -570,7 +569,10 @@ Creates a new User and returns the new object.
 - if you want to custom PORT, you can add PORT='customport' in this file 
 
 - for your information my .env file contains: 
+
+
 PORT = 3000
+
 DATABASE_URL = mongodb://127.0.0.1:27017/videos
 
 
