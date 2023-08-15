@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../Service/productService');
 
-const utility = require('../utility/autenticateToken');
+/* const utility = require('../utility/autenticateToken');
 
-router.use(utility.authenticateToken);
+router.use(utility.authenticateToken); */
 
 router.post('/',async(req,res)=>{
     try{
