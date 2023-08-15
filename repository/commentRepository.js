@@ -2,7 +2,7 @@ const Video = require('../model/video');
 
 async function createComment(videoId, commentData){
 
-        const video = await Video.findById(videoId);
+        const video = await Video.findOne({videoId});
 
 
         video.comments.push(commentData);

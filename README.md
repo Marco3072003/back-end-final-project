@@ -17,7 +17,7 @@ Collection:
             _id: String,
             title: String,
             desc: String,
-            videoURL: String,
+            videoId: String,
             imgURL: String,
             views: Number,
             productId: ['reference with ObjectId product collection'],
@@ -40,6 +40,7 @@ Collection:
         {
             _id: String,
             productURL: String,
+            imgURL: String,
             title: String,
             price: Number
         },
@@ -64,7 +65,7 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
 
 *METHOD POST*
 - http://API_URL/video/ POST video
-  body: {title: String, desc: String, videoURL: String, imgURL: String}
+  body: {title: String, desc: String, videoId: String, imgURL: String}
 
 - http://API_URL/video/:Id/play POST Play Video (video.views++)
 
@@ -76,14 +77,14 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
   body: {username: String, comment: String}
 
 - http://API_URL/product POST Product 
-  body: {productURL: String, title: String, price: Number}
+  body: {productURL: String, imgURL:String,  title: String, price: Number}
 
 *METHOD PATCH*
 - http://API_URL/video/ PATCH Modify Video 
-  body: {title: String, desc: String, videoURL: String, imgURL: String}
+  body: {title: String, desc: String, videoId: String, imgURL: String}
 
 - http://API_URL/product/ PATCH Modify Product
-  body: {productURL: String, title: String, price: Number}
+  body: {productURL: String, imgURL:String,  title: String, price: Number}
 
 *METHOD DELETE*
 - http://API_URL/video/:id DELETE Video By id
@@ -100,7 +101,7 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
         _id: String,
         title: String,
         desc: String,
-        videoURL: String,
+        videoId: String,
         imgURL: String,
         views: Number,
         productId: ['reference with ObjectId product collection'],
@@ -237,7 +238,7 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
   {
     title: String,
     desc: String,
-    videoURL: String,
+    videoId: String,
     imgURL: String
   }
 ```
@@ -428,6 +429,7 @@ Create/Add Comment to specified video (add Data Params value and timestamp to vi
     
     _id: String,
     productURL: String,
+    imgURL:String,
     title: String,
     price: Number
 
@@ -487,6 +489,7 @@ Create/Add Comment to specified video (add Data Params value and timestamp to vi
 ```
   {
     productURL : String,
+    imgURL:String,
     title : String,
     price: Number
   }
@@ -513,6 +516,7 @@ Create/Add Comment to specified video (add Data Params value and timestamp to vi
 ```
   {
   	productURL : String,
+    imgURL:String,
     title : String,
     price: Number
   }

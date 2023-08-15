@@ -1,30 +1,11 @@
+require('dotenv')
 const express = require('express');
 const router = express.Router();
 const Video = require('../Service/videoService');
 const Comment = require('../Service/commentService')
+const utility = require('../utility/autenticateToken');
 
 
-
-router.post('/', async (req,res)=>{
-    try{
-    
-    let{title, desc,videoURL, imgURL} = req.body;
-    
-    if(!title || !desc || !videoURL || !imgURL){
-        throw new Error('Insufficient Parameter');
-    }
-
-    [title, desc,videoURL, imgURL] = [title.trim(), desc.trim(),videoURL.trim(), imgURL.trim()]
-
-    const video = await Video.setVideo(title, desc,videoURL, imgURL);
-
-    res.status(200).json({Success: video})
-
-    }catch(e){
-        
-        res.status(400).json({error: e.message});
-    }
-})
 
 router.get('/', async(req,res) => {
     try{
@@ -35,6 +16,33 @@ router.get('/', async(req,res) => {
         res.status(500).json({error: e.message});
     }
 });
+
+
+
+router.use(utility.authenticateToken);
+
+router.post('/', async (req,res)=>{
+    try{
+    
+    let{title, desc,videoId, imgURL} = req.body;
+    
+    if(!title || !desc || !videoId || !imgURL){
+        throw new Error('Insufficient Parameter');
+    }
+
+    [title, desc,videoId, imgURL] = [title.trim(), desc.trim(),videoId.trim(), imgURL.trim()]
+
+    const video = await Video.setVideo(title, desc,videoId, imgURL);
+
+    res.status(200).json({Success: video})
+
+    }catch(e){
+        
+        res.status(400).json({error: e.message});
+    }
+})
+
+
 
 router.get('/:id', async(req,res)=>{
     
@@ -59,8 +67,8 @@ router.patch('/:id', async(req,res)=>{
 
         const getVideo = await Video.findVideo(id);
 
-        let{title, desc ,videoURL, imgURL} = req.body;
-        if(!title && !desc && !videoURL && !imgURL){
+        let{title, desc ,videoId, imgURL} = req.body;
+        if(!title && !desc && !videoId && !imgURL){
 
         throw new Error('Insufficient Parameter');
         }
@@ -68,11 +76,11 @@ router.patch('/:id', async(req,res)=>{
         if (!title) title = getVideo.title;
         
         if (!desc) desc = getVideo.desc;
-        if (!videoURL) videoURL = getVideo.videoURL;
+        if (!videoId) videoId = getVideo.videoId;
         if (!imgURL) imgURL = getVideo.imgURL;
 
 
-        const video = await Video.modifyVideo( id, title, desc, videoURL, imgURL );
+        const video = await Video.modifyVideo( id, title, desc, videoId, imgURL );
 
         res.status(200).json({SuccessUpdatedData : video});
     }catch(e){

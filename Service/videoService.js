@@ -13,11 +13,11 @@ async function checkVideo(){
 
 }
 
-function checkInputString(title, desc,videoURL, imgURL){
+function checkInputString(title, desc,videoId, imgURL){
 
-    if(!(typeof title === "string" && typeof desc === "string" && typeof videoURL === "string" && typeof imgURL === "string") ){
+    if(!(typeof title === "string" && typeof desc === "string" && typeof videoId === "string" && typeof imgURL === "string") ){
 
-        throw new Error('Data type of title, desc, videoURL, imgURL must be String');
+        throw new Error('Data type of title, desc, videoId, imgURL must be String');
     }
     
     return
@@ -29,23 +29,24 @@ async function findAllVideos(){
 
     const getVideos = await Video.getAllVideos();
 
-    const generalInfo = getVideos.map(({_id, title, desc, imgURL,videoURL}) => ({
+    const generalInfo = getVideos.map(({_id, title, desc, views,imgURL,videoId}) => ({
         _id,
         title,
         desc,
+        views,
         imgURL,
-        videoURL
+        videoId
     }))
     
     return generalInfo
 }
 
 
-async function findVideo(id){
+async function findVideo(videoId){
     try{
         await checkVideo();
 
-        const getVideo = await Video.getVideo(id);
+        const getVideo = await Video.getVideo(videoId);
 
         if(getVideo === null ){
             throw new Error("Video doesn't exist")
@@ -64,14 +65,14 @@ async function findVideo(id){
     }
 }
 
-async function setVideo(title, desc, videoURL, imgURL){
-    checkInputString(title, desc,videoURL, imgURL);
+async function setVideo(title, desc, videoId, imgURL){
+    checkInputString(title, desc, videoId, imgURL);
 
     const videos = await Video.getAllVideos();
 
     if(!(videos === null)){
 
-    const checkVideoImgURL = videos.some((video) => video.videoURL === videoURL || video.imgURL === imgURL);
+    const checkVideoImgURL = videos.some((video) => video.videoId === videoId || video.imgURL === imgURL);
 
     if(checkVideoImgURL){
         throw new Error('Video or Image URL has been added');
@@ -79,19 +80,19 @@ async function setVideo(title, desc, videoURL, imgURL){
 
     }   
 
-    const video =  await Video.createVideo(title,desc,videoURL, imgURL);
+    const video =  await Video.createVideo(title,desc,videoId, imgURL);
     
     return video;
 }
 
-async function modifyVideo(id, title, desc, videoURL, imgURL){
+async function modifyVideo(id, title, desc, videoId, imgURL){
     await checkVideo();
 
     await findVideo(id);
 
-    checkInputString(title, desc,videoURL, imgURL);
+    checkInputString(title, desc,videoId, imgURL);
 
-    const updateVideoData = Object.assign({}, {title, desc, videoURL, imgURL});
+    const updateVideoData = Object.assign({}, {title, desc, videoId, imgURL});
 
     const updatedData = await Video.updateVideo(id, updateVideoData);
 
@@ -184,11 +185,11 @@ async function removeProductFromVideo(videoId, productID){
 
 }
 
-async function findVideoProductList(id){
+async function findVideoProductList(videoId){
     await checkVideo();
-    await findVideo(id);
+    await findVideo(videoId);
 
-    const video = await Video.getVideoProductList(id);
+    const video = await Video.getVideoProductList(videoId);
 
     const productList = [...video.productId];
 

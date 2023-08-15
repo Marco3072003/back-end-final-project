@@ -2,7 +2,7 @@
 const Video = require('../model/video');
 
 
-async function createVideo(title, desc, videoURL, imgURL){
+async function createVideo(title, desc, videoId, imgURL){
   
 
     const newVideo = new Video(
@@ -10,7 +10,7 @@ async function createVideo(title, desc, videoURL, imgURL){
           
             title: title,
             desc: desc,
-            videoURL: videoURL,
+            videoId: videoId,
             imgURL: imgURL
 
         }
@@ -32,10 +32,10 @@ async function getAllVideos(){
 }
 
 
-async function getVideo(id){
+async function getVideo(videoId){
     
 
-        const video = await Video.findById(id);
+        const video = await Video.findOne({videoId});
         return video;
   
     
@@ -129,9 +129,9 @@ async function removeProductIdFromVideo(videoId, productId){
 }
 
 
-async function getVideoProductList(id){
+async function getVideoProductList(videoId){
 
-    const video = await Video.findById(id).populate('productId');
+    const video = await Video.findOne({videoId:videoId}).populate('productId');
     
     return video;
 }

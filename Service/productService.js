@@ -15,9 +15,9 @@ async function checkProduct(){
 }
 
 
-function checkInputString(productURL, title){
+function checkInputString(productURL,imgURL ,title){
 
-    if(!(typeof productURL === "string" && typeof title === "string") ){
+    if(!(typeof productURL === "string" && typeof title === "string" && typeof imgURL === "string") ){
 
         throw new Error('Data type of productURL and title must be String');
     }
@@ -63,53 +63,53 @@ async function findProduct(id){
 
 
 
-async function setProduct(productURL, title, price){
+async function setProduct(productURL,imgURL, title, price){
     const priceNumber = Number(price);
-    checkInputString(productURL, title);
+    checkInputString(productURL,imgURL, title);
     checkNumber(priceNumber);
 
     const getProducts = await Product.getAllProducts();
 
     if(!(getProducts === null)){
 
-    const checkProductURL = getProducts.some((product)=> product.productURL === productURL);
+    const checkProductURL = getProducts.some((product)=> product.productURL === productURL|| product.imgURL === imgURL);
 
     if(checkProductURL){
-        throw new Error('URL Product has been added');
+        throw new Error('URL Product or IMAGE Product has been added');
     }
 
     }
 
-    const setProduct = await Product.createProduct(productURL, title, priceNumber);
+    const setProduct = await Product.createProduct(productURL,imgURL, title, priceNumber);
 
     return setProduct;
 
 }
 
 
-async function modifyProduct(id, productURL, title, price){
+async function modifyProduct(id, productURL, imgURL, title, price){
     await checkProduct();
 
     await findProduct(id);
 
     const priceNumber = Number(price);
 
-    checkInputString(productURL, title);
+    checkInputString(productURL,imgURL, title);
     checkNumber(priceNumber);
 
     const getProducts = await Product.getAllProducts();
 
     if(!(getProducts === null)){
 
-    const checkProductURL = getProducts.some((product)=> product.productURL === productURL);
+    const checkProductURL = getProducts.some((product)=> product.productURL === productURL|| product.imgURL === img.URL);
 
     if(checkProductURL){
-        throw new Error('URL Product has been added');
+        throw new Error('URL Product or IMAGE Product has been added');
     }
 
     }
 
-    const updatedProductData =Object.assign({}, {productURL, title, price});
+    const updatedProductData =Object.assign({}, {productURL,imgURL, title, price});
 
     const updatedData = Product.updateProduct(id, updatedProductData);
 

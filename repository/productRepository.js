@@ -1,11 +1,12 @@
 const Product = require('../model/product');
 
-async function createProduct(productURL, title, price){
+async function createProduct(productURL,imgURL, title, price){
 
 
         const newProduct = new Product(
             {
               productURL: productURL,
+              imgURL: imgURL,
               title: title,
               price: price
             }
@@ -26,7 +27,6 @@ async function getAllProducts(){
 }
 
 async function getProduct(id){
-
 
             const product = await Product.findById(id);
             return product;
