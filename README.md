@@ -1,4 +1,4 @@
-**FERNANDO MARCO GG3FSGP0329 FULLSTACK ENGINEERING Generasi GIGIH 3.0 FINAL PROJECT assignment API TOKOPEDIA PLAY CLONE**
+**FERNANDO MARCO GG3FSGP0329 FULLSTACK ENGINEERING GENERASI GIGIH 3.0 FINAL PROJECT ASSIGNMENT API TOKOPEDIA PLAY CLONE**
 ----
 
 This is my project to fullfill Mid Term assignment from Generasi GIGIH 3.0. I am using mongoDB as database and NodeJs, expressJs as backend. Make sure your PC has mongoDB installed and can run it.
