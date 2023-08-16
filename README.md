@@ -1,4 +1,4 @@
-**FERNANDO MARCO GG3FSGP0329 FULLSTACK ENGINEERING Generasi GIGIH 3.0 Mid Term assignment Video API**
+**FERNANDO MARCO GG3FSGP0329 FULLSTACK ENGINEERING Generasi GIGIH 3.0 FINAL PROJECT assignment Video TOKOPEDIA PLAY CLONE**
 ----
 
 This is my project to fullfill Mid Term assignment from Generasi GIGIH 3.0. I am using mongoDB as database and NodeJs, expressJs as backend. Make sure your PC has mongoDB installed and can run it.
@@ -49,47 +49,137 @@ Collection:
 }
 ```
 
+- users
+```
+{
+    [
+        {
+            _id: String,
+            username: String,
+            password: String,
+        },
+        {<username_object>}
+    ]
+}
+```
+
 **API STRUCTURE**
 ----
 
-You can replace API_URL by localhost:YOUR_RUNNING_PORT. 
-
 *METHOD GET*
-- http://API_URL/video/  GET All Videos
-- http://API_URL/video/:id  GET Detail Videos By id
-- http://API_URL/video/:videoId/product/  GET ProductList
-- http://API_URL/video/:videoId/comment/  GET Comment List
+- https://back-end-final-project-gg30.vercel.app/video/  GET All Videos
+- https://back-end-final-project-gg30.vercel.app/video/:id  GET Detail Videos By id
+- https://back-end-final-project-gg30.vercel.app/video/:videoId/product/  GET ProductList
+- https://back-end-final-project-gg30.vercel.app/video/:videoId/comment/  GET Comment List
 
-- http://API_URL/product/ GET All Product
-- http://API_URL/product/:id GET Product By id
+- https://back-end-final-project-gg30.vercel.app/product/ GET All Product
+- https://back-end-final-project-gg30.vercel.app/product/:id GET Product By id
 
 *METHOD POST*
-- http://API_URL/video/ POST video
+- https://back-end-final-project-gg30.vercel.app/login/ LOGIN
+- https://back-end-final-project-gg30.vercel.app/register/ REGISTER
+- https://back-end-final-project-gg30.vercel.app/video/ POST video
   body: {title: String, desc: String, videoId: String, imgURL: String}
 
-- http://API_URL/video/:Id/play POST Play Video (video.views++)
+- https://back-end-final-project-gg30.vercel.app/video/:Id/play POST Play Video (video.views++)
 
-- http://API_URL/video/:videoId/like/:username POST Like Video (add username to video.likes)
+- https://back-end-final-project-gg30.vercel.app/video/:videoId/like/:username POST Like Video (add username to video.likes)
 
-- http://API_URL/video/:videoId/product/:productId POST Associate an existing Product to an existing video (add productId to video.productId)
+- https://back-end-final-project-gg30.vercel.app/video/:videoId/product/:productId POST Associate an existing Product to an existing video (add productId to video.productId)
 
-- http://API_URL/video/:videoId/comment POST Comment to Video (add body value and timestamp to video.comment )
+- https://back-end-final-project-gg30.vercel.app/video/:videoId/comment POST Comment to Video (add body value and timestamp to video.comment )
   body: {username: String, comment: String}
 
-- http://API_URL/product POST Product 
+- https://back-end-final-project-gg30.vercel.app/product POST Product 
   body: {productURL: String, imgURL:String,  title: String, price: Number}
 
 *METHOD PATCH*
-- http://API_URL/video/ PATCH Modify Video 
+- https://back-end-final-project-gg30.vercel.app/video/ PATCH Modify Video 
   body: {title: String, desc: String, videoId: String, imgURL: String}
 
-- http://API_URL/product/ PATCH Modify Product
+- https://back-end-final-project-gg30.vercel.app/product/ PATCH Modify Product
   body: {productURL: String, imgURL:String,  title: String, price: Number}
 
 *METHOD DELETE*
-- http://API_URL/video/:id DELETE Video By id
-- http://API_URL/product/:id DELETE Product By id
-- http://API_URL/video/:videoId/product/:productId DELETE remove reference Product By ProductId From Video By Id (Delete video.productId by productId)
+- https://back-end-final-project-gg30.vercel.app/video/:id DELETE Video By id
+- https://back-end-final-project-gg30.vercel.app/product/:id DELETE Product By id
+- https://back-end-final-project-gg30.vercel.app/video/:videoId/product/:productId DELETE remove reference Product By ProductId From Video By Id (Delete video.productId by productId)
+
+**AUTH / REGISTER AND LOGIN TO GET TOKEN FOR MORE ACCESS**
+#REGISTER
+
+**POST /register**
+Creates a new User and returns the object and token.
+
+* **URL Params**  
+  None
+* **Headers**  
+  Content-Type: application/json  
+* **Data Params**  
+```
+  {
+    username: string,
+    password: String,
+  }
+```
+* **Success Response:**  
+* **Code:** 200  
+  **Content:** 
+```
+{
+    "success": {
+        "username": String,
+        "password": String,
+        "_id": String,
+        "__v": 0
+    }
+}
+```
+* **Error Response:**  
+  * **Code:** 404  
+  **Content:** 
+  ```
+  {
+    "error": "Username has been used"
+  }
+  ```
+
+
+  **POST /login**
+  Login and get the Token
+
+* **URL Params**  
+  None
+* **Headers**  
+  Content-Type: application/json  
+* **Data Params**  
+```
+  {
+    username: string,
+    password: String,
+  }
+```
+* **Success Response:**  
+* **Code:** 200  
+  **Content:** 
+```
+{
+    {
+    "accessToken": String,
+    "username": String
+}
+}
+```
+* **Error Response:**  
+  * **Code:** 404  
+  **Content:** 
+  ```
+  {
+    "error": "Invalid Username"
+  }
+  ```
+    
+
 
 
 **LIST API REQUEST AND RESPONSE**
@@ -151,7 +241,8 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
 * **Data Params**  
   None
 * **Headers**  
-  Content-Type: application/json  
+  Content-Type: application/json 
+  Authorization: Bearer accessToken
 * **Success Response:** 
 * **Code:** 200  
   **Content:**  `{ <video_object> }` 
@@ -160,7 +251,11 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
   **Content:** `{ error : "Video doesn't exist" }`
   OR
   * **Code:** 404  
-  **Content:** `{ error : "Video List is Empty" }`  
+  **Content:** `{ error : "Video List is Empty" }` 
+  OR
+  * **Code:** 404  
+  **Content:** `{"error": "no token and unauthorize"}` 
+
 
 
 **GET /video/:videoId/product**
@@ -172,6 +267,7 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
   None
 * **Headers**  
   Content-Type: application/json  
+  Authorization: Bearer accessToken
 * **Success Response:**  
 * **Code:** 200  
   **Content:**  
@@ -192,7 +288,10 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
   **Content:** `{ error : "Video List is Empty" }`
   OR
   * **Code:** 404  
-  **Content:** `{ error : "Product List is Empty" }`  
+  **Content:** `{ error : "Product List is Empty" }`
+  OR
+  * **Code:** 404  
+  **Content:** `{"error": "no token and unauthorize"}` 
 
 **GET /video/:videoId/comment**
 ----
@@ -203,6 +302,7 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
   None
 * **Headers**  
   Content-Type: application/json  
+  Authorization: Bearer accessToken
 * **Success Response:**  
 * **Code:** 200  
   **Content:**  
@@ -224,6 +324,9 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
   OR
   * **Code:** 404  
   **Content:** `{ error : "Comment List is Empty" }`
+  OR
+  * **Code:** 404  
+  **Content:** `{"error": "no token and unauthorize"}` 
     
 
 **POST /video**
@@ -233,6 +336,7 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
   None
 * **Headers**  
   Content-Type: application/json  
+  Authorization: Bearer accessToken
 * **Data Params**  
 ```
   {
@@ -251,6 +355,9 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
   OR  
   * **Code:** 404  
   **Content:** `{ error : error : "Insufficient Parameter" }`
+  OR
+  * **Code:** 404  
+  **Content:** `{"error": "no token and unauthorize"}` 
     
 
 **POST /video/:id/play**
@@ -259,7 +366,8 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
 * **URL Params**  
 *Required:* `id=[ObjectId]`
 * **Headers**  
-  Content-Type: application/json  
+  Content-Type: application/json
+  Authorization: Bearer accessToken  
 * **Data Params**  
   None
 * **Success Response:**  
@@ -271,6 +379,9 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
   OR
   * **Code:** 404  
   **Content:** `{ error : "Video List is Empty" }`  
+  OR
+  * **Code:** 404  
+  **Content:** `{"error": "no token and unauthorize"}` 
 
 **POST /video/:id/like/:username**
 ----
@@ -280,6 +391,7 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
 *Required:* `username=[String]`
 * **Headers**  
   Content-Type: application/json  
+  Authorization: Bearer accessToken
 * **Data Params**  
   None
 * **Success Response:**  
@@ -290,7 +402,10 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
   **Content:** `{ error : "Video doesn't exist" }`
   OR
   * **Code:** 404  
-  **Content:** `{ error : "Video List is Empty" }`  
+  **Content:** `{ error : "Video List is Empty" }` 
+  OR
+  * **Code:** 404  
+  **Content:** `{"error": "no token and unauthorize"}` 
 
 **POST /video/:videoId/product/:productId**
 ----
@@ -300,6 +415,7 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
 *Required:* `productId=[ObjectId]`
 * **Headers**  
   Content-Type: application/json  
+  Authorization: Bearer accessToken
 * **Data Params**  
   None
 * **Success Response:**  
@@ -317,6 +433,9 @@ You can replace API_URL by localhost:YOUR_RUNNING_PORT.
   OR
   * **Code:** 404  
   **Content:** `{ error : "Product doesn't exist" }`
+  OR
+  * **Code:** 404  
+  **Content:** `{"error": "no token and unauthorize"}` 
   
 **POST /video/:id/comment**
 ----
@@ -325,6 +444,7 @@ Create/Add Comment to specified video (add Data Params value and timestamp to vi
 *Required:* `id=[ObjectId]`
 * **Headers**  
   Content-Type: application/json  
+  Authorization: Bearer accessToken
 * **Data Params**  
  ```
   {
@@ -341,7 +461,10 @@ Create/Add Comment to specified video (add Data Params value and timestamp to vi
   **Content:** `{ error : "Video doesn't exist" }`
   OR
   * **Code:** 404  
-  **Content:** `{ error : "Video List is Empty" }` 
+  **Content:** `{ error : "Video List is Empty" }`
+  OR
+  * **Code:** 404  
+  **Content:** `{"error": "no token and unauthorize"}` 
   
 
 **PATCH /video/:id**
@@ -358,6 +481,7 @@ Create/Add Comment to specified video (add Data Params value and timestamp to vi
 ```
 * **Headers**  
   Content-Type: application/json  
+  Authorization: Bearer accessToken
 * **Success Response:** 
 * **Code:** 200  
   **Content:**  `{ <user_object> }`  
@@ -370,6 +494,9 @@ Create/Add Comment to specified video (add Data Params value and timestamp to vi
   OR
   * **Code:** 404  
   **Content:** `{ error : "Video or Image URL has been added" }`
+  OR
+  * **Code:** 404  
+  **Content:** `{"error": "no token and unauthorize"}` 
 
 **DELETE /video/:id**
 ----
@@ -380,6 +507,7 @@ Create/Add Comment to specified video (add Data Params value and timestamp to vi
   None
 * **Headers**  
   Content-Type: application/json  
+  Authorization: Bearer accessToken
 * **Success Response:** 
   * **Code:** 200 
   **Content:**  `{Message: Successfully deleted video with title $video.title}` 
@@ -389,6 +517,9 @@ Create/Add Comment to specified video (add Data Params value and timestamp to vi
   OR  
   * **Code:** 404  
   **Content:** `{ error : Video List is Empty." }`
+  OR
+  * **Code:** 404  
+  **Content:** `{"error": "no token and unauthorize"}` 
 
 **DELETE /video/:videoId/product/:productId**
 ----
@@ -400,6 +531,7 @@ Create/Add Comment to specified video (add Data Params value and timestamp to vi
   None
 * **Headers**  
   Content-Type: application/json  
+  Authorization: Bearer accessToken
 * **Success Response:** 
   * **Code:** 200 
   **Content:**  `{Message: Success to remove product $product.title from video $video.title` 
@@ -421,6 +553,9 @@ Create/Add Comment to specified video (add Data Params value and timestamp to vi
   OR  
   * **Code:** 404  
   **Content:** `{ error : There is no ProductID in video" }`
+  OR
+  * **Code:** 404  
+  **Content:** `{"error": "no token and unauthorize"}`
 
 #Products
 * Product object
@@ -444,6 +579,7 @@ Create/Add Comment to specified video (add Data Params value and timestamp to vi
   None
 * **Headers**  
   Content-Type: application/json  
+  Authorization: Bearer accessToken
 * **Success Response:** 
 * **Code:** 200  
   **Content:**  
@@ -458,7 +594,10 @@ Create/Add Comment to specified video (add Data Params value and timestamp to vi
 ```
 * **Error Response:**  
   * **Code:** 404  
-  **Content:** `{ error : "Product List is Empty" }` 
+  **Content:** `{ error : "Product List is Empty" }`
+  OR
+  * **Code:** 404  
+  **Content:** `{"error": "no token and unauthorize"}
 
 **GET /product/:id**
 ----
@@ -469,6 +608,7 @@ Create/Add Comment to specified video (add Data Params value and timestamp to vi
   None
 * **Headers**  
   Content-Type: application/json  
+  Authorization: Bearer accessToken
 * **Success Response:**  
 * **Code:** 200  
   **Content:**  `{ <product_object> }` 
@@ -478,6 +618,9 @@ Create/Add Comment to specified video (add Data Params value and timestamp to vi
   OR  
   * **Code:** 404  
   **Content:** `{ error : "Product List is Empty" }`
+  OR
+  * **Code:** 404  
+  **Content:** `{"error": "no token and unauthorize"}` 
 
 
 **POST /products**
@@ -496,6 +639,7 @@ Create/Add Comment to specified video (add Data Params value and timestamp to vi
 ```
 * **Headers**  
   Content-Type: application/json  
+  Authorization: Bearer accessToken
 * **Success Response:**  
 * **Code:** 200  
   **Content:**  `{ <product_object> }`
@@ -505,6 +649,9 @@ Create/Add Comment to specified video (add Data Params value and timestamp to vi
   OR  
   * **Code:** 404  
   **Content:** `{ error : error : "Insufficient Parameter" }`  
+  OR
+  * **Code:** 404  
+  **Content:** `{"error": "no token and unauthorize"}` 
 
 
 **PATCH /products/:id**
@@ -522,7 +669,8 @@ Create/Add Comment to specified video (add Data Params value and timestamp to vi
   }
 ```
 * **Headers**  
-  Content-Type: application/json  
+  Content-Type: application/json
+  Authorization: Bearer accessToken
 * **Success Response:** 
 * **Code:** 200  
   **Content:**  `{ <product_object> }`  
@@ -535,6 +683,10 @@ Create/Add Comment to specified video (add Data Params value and timestamp to vi
   OR  
   * **Code:** 404  
   **Content:** `{ error : "URL product has been added" }`
+  OR
+  * **Code:** 404  
+  **Content:** `{"error": "no token and unauthorize"}` 
+  
 
 **DELETE /products/:id**
 ----
@@ -545,6 +697,7 @@ Create/Add Comment to specified video (add Data Params value and timestamp to vi
   None
 * **Headers**  
   Content-Type: application/json  
+  Authorization: Bearer accessToken
 * **Success Response:**  
   * **Code:** 200
 * **Error Response:**  
@@ -553,36 +706,26 @@ Create/Add Comment to specified video (add Data Params value and timestamp to vi
   OR  
   * **Code:** 404  
   **Content:** `{ error : "Product List is Empty" }`
+  OR
+  * **Code:** 404  
+  **Content:** `{"error": "no token and unauthorize"}` 
 
 
-**HOW TO RUN** 
-----
-**Make sure Make sure your PC has mongoDB installed. 
+⚙️ How to Run Locally
+Clone the repository.
 
-**Make sure your PC has mongoDB installed. Because this App use the mongoDB database
+Install the required dependencies:
 
-1. CLONE THE REPOSITORY
+express
+body-parser
+mongoose
+dotenv
+nodemon
+Configure .env:
 
-2. INSTALL THE DEPENDENCIES:
-- express
-- body-parser
-- mongoose
-- dotenv
-- nodemon
+Create a .env file.
+Add DATABASE_URL='mongodb://your_database_url'.
+Optionally, set PORT='custom_port' (default is 3000).
+Run the application:
 
-3. .env CONFIGURATION:
-- make a file name .env
-- in this file add DATABASE_URL = 'mongodb://your database url'
-
-- This apps default run on PORT 3000. If you want to custom PORT, you can add PORT='customport' in this file 
-
-- for your information my .env file contains: 
-
-  PORT = 3000
-
-  DATABASE_URL = mongodb://127.0.0.1:27017/videos
-
-
-4. RUN THE APPLICATION: 
-
-- run command 'npm start' in terminal
+Use the command npm start in the terminal.
